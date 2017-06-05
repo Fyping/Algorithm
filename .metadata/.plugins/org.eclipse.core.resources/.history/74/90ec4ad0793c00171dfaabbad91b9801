@@ -1,0 +1,27 @@
+package cn.com.fangself.javautils;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class PicutureIO {
+
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		// TODO Auto-generated method stub
+		BufferedImage  img = new BufferedImage(70,35,BufferedImage.TYPE_INT_RGB);
+		Graphics g = img.getGraphics();
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("华文行楷",Font.BOLD,26));
+		g.drawString("中国人", 0, 0);
+		ImageIO.write(img, "jpg", new FileOutputStream("D:\\myCodeOnGithub\\JavaAlgorithm\\JavaUtilsTest\\src\\cn\\com\\fangself\\javautils\\a.jpg"));
+	}
+
+}

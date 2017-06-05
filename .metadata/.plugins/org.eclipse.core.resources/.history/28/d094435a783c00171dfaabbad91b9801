@@ -1,0 +1,10 @@
+package cn.com.fangself.javautils;
+
+public class PicutureIO {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
