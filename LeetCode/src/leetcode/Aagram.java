@@ -1,12 +1,12 @@
 package leetcode;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.Enumeration;
 import java.util.LinkedList;
 /*
  * date:20170530
  * **/
 import java.util.List;
+import java.util.Vector;
 public class Aagram {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> result = new LinkedList<Integer>();
@@ -36,50 +36,22 @@ public class Aagram {
     }
 	@SuppressWarnings("unused")
 	private boolean panit(String substring,String p) {
-		//出现的次数一致即可
-		System.out.println("sub length =" + substring.length()+"    " + p.length());
-		System.out.println("sub -----------" + substring+ " ---------");
-		StringBuilder  strBuild = new StringBuilder(substring);
-		StringBuilder pBuild = new StringBuilder(p);
-		for(int i=0;i<pBuild.length();i++){
-			for(int j=0;j<strBuild.length();j++){
-				if(pBuild.charAt(i)==strBuild.charAt(j)){
-					strBuild.deleteCharAt(j);
-					System.out.println("  after   --------------------      sub -----------" + strBuild+ " ---------");
-					
-					pBuild.deleteCharAt(i);
-				}
-			}
-		}
-		if(strBuild.length()==0){
-			System.out.println("---------------------------true");
-			return true;
-		}else{
-			 return false;
-		}
-		/*
 		boolean result = false;
-		String stand = "abcdefghijklmnopqrstuvwxyz";
-			 for(int i=0;i<26;i++){
-				 int counti=0;
-				 int countj=0;
-				 
-			 for(int j=0;j<substring.length();j++){
-				 if(substring.charAt(j)==stand.charAt(i)){
-					 counti++;
-				 }
-			 }
-			 for(int k=0;k<p.length();k++){
-				 if(p.charAt(k)==stand.charAt(i)){
-					 countj++;
-				 }
-			 }
-			 if(counti==countj){
-				 return true;
-			 }else{
-				 return false;
-			 }*/
-			 }
+		
+		Enumeration<Character> enumerationSubstring,enumerationP ;
+		Vector<Character> characterSubstring = new Vector<Character>();
+		Vector<Character> characterp         = new Vector<Character>();
+		for(int i=0;i<substring.length();i++){
+			characterSubstring.add(substring.charAt(i));
+		}
+		for(int j=0;j<p.length();j++){
+			characterp.add(p.charAt(j));
+		}
+		enumerationSubstring = characterSubstring.elements();
+		enumerationP = characterp.elements();
+
+		return enumerationSubstring.equals(enumerationP)?true:false;
+	}
 			 /*
 			 strTmp = new StringBuilder(substring);
 			 for(int j=0;j<p.length();j++){
@@ -112,6 +84,7 @@ public class Aagram {
 	public static void main(String [] args){
 		String s = new String("cbaebabacd");
 		String p = new String("abc");
+		System.out.println((new Aagram()).panit("abc","bac"));
 		List<Integer> result =(new Aagram()).findAnagrams(s,p);
 		//List<Integer> result = (new Solution()).findAnagrams(s, p);
 		for(Integer in: result){
