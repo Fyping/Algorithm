@@ -5,6 +5,8 @@ import java.util.Vector;
 public class Solution_7 {
     /**
      * 还有问题,下次再改！！！！！！！！
+	 
+	 http://www.lintcode.com/zh-cn/problem/count-1-in-binary/
      *@param a, b: Two integer
      *return: An integer
      */
