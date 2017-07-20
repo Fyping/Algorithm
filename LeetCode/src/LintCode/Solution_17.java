@@ -30,7 +30,141 @@ public class Solution_17 {
      * @param points an array of point
      * @return an integer
      */
+	int  dealthWithRowAndCol(byte ret[][] ,int col,int row,byte rowOrcol){
+		int rowMax = 0;
+    	for(int i=0;i<row;i++){
+    		int countRowMax = 0;
+    		in:for(int j=0;j<col;j++){
+    			if(rowOrcol==1){
+	    			if(ret[i][j]==1){
+	    				countRowMax++;
+	    			}
+    			}else{
+    				if(ret[j][i]==1){
+        				countRowMax++;
+        			}
+    			}
+    		}
+    		if(countRowMax>rowMax){
+    			rowMax=countRowMax;
+    		}
+    	}
+    	return rowMax;
+    	/*
+    	rowMax = 0;
+    	for(int i=0;i<col;i++){
+    		int countColMax = 0;
+    		in:for(int j=0;j<row;j++){
+    			if(ret[j][i]==1){
+    				countColMax++;
+    			}
+    		}
+    		if(countColMax>rowMax){
+    			rowMax=countColMax;
+    		}
+    	}
+    	*/
+	}
+	int dealthWithLeftLine(byte ret[][],int row,int col,byte rowOrcol){
+    	int leftMaxReal = 0;
+    	for(int i=0;i<row;i++){
+    		int rowIndex;
+    		int colIndex;
+	    	if(rowOrcol==1){
+	    		 rowIndex = i;
+		    	 colIndex = 0;
+	    	}else{
+	    		rowIndex = 0;
+		    	colIndex = i;
+	    	}
+	    	int leftMax = 0;
+	    	for(;rowIndex<row&&colIndex<col;rowIndex++,colIndex++){
+	    		if(ret[rowIndex][colIndex]==1){
+	    			leftMax++;
+	    		}
+	    	}
+	    	if(leftMax>leftMaxReal){
+	    		leftMaxReal=leftMax;
+	    	}
+    	}
+    	return leftMaxReal;
+	}
     public int maxPoints(Point[] points) {
+    	int row = 0;
+    	int col = 0;
+    	int countsPoints = points.length;
+    	for(int i=0;i<countsPoints;i++){
+    		if(row<points[i].x){
+    			row = points[i].x;
+    		}
+    		if(col<points[i].y){
+    			col = points[i].y;
+    		}
+    	}
+    	row++;
+    	col++;
+    	byte [][] ret = new byte[row][col];
+    	for(int i=0;i<row;i++){
+    		for(int k=0;k<countsPoints;k++){
+    			if(points[k].x==i){
+    				for(int j=0;j<col;j++){
+    					if(points[k].y==j){
+    						ret[i][j]=1;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	for(int i=0;i<row;i++){
+    		for(int j=0;j<col;j++){
+    		//	System.out.print(ret[i][j]);
+    		}
+    		//System.out.println();
+    	}
+    
+    	int max = 0;
+    	
+    	int rowResult = dealthWithRowAndCol(ret,col,row,(byte) 1);
+    	//System.out.println("rowResult is " + rowResult);
+
+    	if(max<rowResult){max = rowResult;}
+    	
+    	int colResult = dealthWithRowAndCol(ret,row,col,(byte)0);
+    	//System.out.println("colResult is " + colResult);
+    	
+    	if(max<colResult){max = colResult;}
+    	
+    	int lineResult = dealthWithLeftLine(ret,row,col,(byte)1);
+    	//System.out.println("LeftLineResult is " + lineResult);
+
+    	if(max<lineResult){max = lineResult;}
+    	
+    	int lineResult_ = dealthWithLeftLine(ret,row,col,(byte)0);
+    	//System.out.println("lineResult_ is " + lineResult_);
+
+    	if(max<lineResult_){max = lineResult_;}
+    	
+    	return max; 
+    /*	leftMaxReal = 0;
+    	for(int i=0;i<col;i++){
+	    	int rowIndex = 0;
+	    	int colIndex = i;
+	    	int leftMax = 0;
+	    	for(;rowIndex<row&&colIndex<col;rowIndex++,colIndex++){
+	    		if(ret[rowIndex][colIndex]==1){
+	    			leftMax++;
+	    		}
+	    	}
+	    	if(leftMax>leftMaxReal){
+	    		leftMaxReal=leftMax;
+	    	}
+    	}
+    	if(result<leftMaxReal){
+    		result = leftMaxReal;
+    	}*/
+    }
+	
+    public int maxPoints_1(Point[] points) {
     	int result = 0;
     	int row = 0;
     	int col = 0;
@@ -65,7 +199,6 @@ public class Solution_17 {
     		System.out.println();
     	}
     	int rowMax = 0;
-    	int colMax = 0;
     	for(int i=0;i<row;i++){
     		int countRowMax = 0;
     		byte existsZeroInRow = 0;
@@ -85,7 +218,6 @@ public class Solution_17 {
     			rowMax=countRowMax;
     		}
     	}
-    	System.out.println("row max == " + rowMax);
     	rowMax = 0;
     	for(int i=0;i<col;i++){
     		int countColMax = 0;
@@ -106,11 +238,8 @@ public class Solution_17 {
     			rowMax=countColMax;
     		}
     	}
-    	System.out.println("col max ==" + rowMax);
     	int leftMaxReal = 0;
-    	
     	for(int i=0;i<row;i++){
-
 	    	int rowIndex = i;
 	    	int colIndex = 0;
 	    	byte existsZeroInLeft =0;
@@ -156,7 +285,6 @@ public class Solution_17 {
 	    		leftMaxReal=leftMax;
 	    	}
     	}
-    	System.out.println("left max ==" +leftMaxReal);
     	if(result<leftMaxReal){
     		result = leftMaxReal;
     	}
@@ -178,7 +306,6 @@ public class Solution_17 {
     				}
     			}
     		}
-    		System.out.print(rightMax+"   ");
     		if(rightMax>rightMaxReal){
     			rightMaxReal=rightMax;
     		}
@@ -204,23 +331,21 @@ public class Solution_17 {
     				}
     			}
     		}
-    		System.out.print(rightMax+"   ");
     		if(rightMax>rightMaxReal){
     			rightMaxReal=rightMax;
     		}
     	}
-    	System.out.println("result ==="+result);
     	return result;
     }
     public static void main(String [] args){
-    	Point p_1 = new Point(1,2);
-    	Point p_2 = new Point(3,6);
+    	Point p_1 = new Point(8,0);
+    	Point p_2 = new Point(0,5);
     	Point p_3 = new Point(0,0);
-    	Point p_4 = new Point(1,3);
-    	Point p_5 = new Point(2,3);
-    	Point p_6 = new Point(3,2);
-    	Point p_7 = new Point(1,4);
-    	Point points []= {p_1,p_2,p_3,p_4,p_5,p_6,p_7};
+    	Point p_4 = new Point(1,0);
+    	//Point p_5 = new Point(2,3);
+    	//Point p_6 = new Point(3,2);
+    	Point p_7 = new Point(1,6);
+    	Point points []= {p_1,p_2,p_3,p_4,p_7};
     	System.out.println((new Solution_17()).maxPoints(points));
     }
 }
