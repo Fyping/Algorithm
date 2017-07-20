@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="BlueCup/src"/>
+	<classpathentry kind="src" path="LeetCode/src"/>
+	<classpathentry excluding="cn/com/fangself/Algorithm/" kind="src" path="Pat/src"/>
+	<classpathentry kind="src" path="Pat/src/cn/com/fangself/Algorithm"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="BlueCup/bin"/>
+</classpath>
